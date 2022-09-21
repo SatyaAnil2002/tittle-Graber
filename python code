@@ -1,0 +1,24 @@
+import tkinter as tk
+import requests
+import bs4
+win=tk.Tk()
+win.geometry('500x500')
+lab=tk.Label(text='enter')
+lab.grid(row=0,column=0)
+ent=tk.Entry()
+ent.grid(row=0,column=1)
+def func():
+    win2=tk.Tk()
+    win2.geometry('200x200')
+    website_link=ent.get()
+    mainvar=requests.get(website_link)
+    cortvar=bs4.BeautifulSoup(mainvar.text,'lxml')
+    webpage_tittle=cortvar.select('title')
+    var1=str(webpage_tittle[0].text)
+    lab2=tk.Label(win2,text=var1)
+    lab2.grid(row=0,column=0)
+    win2.mainloop()
+but=tk.Button(text='submit', command=func)
+but.grid(row=1,column=0)
+
+win.mainloop()
